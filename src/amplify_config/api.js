@@ -1,4 +1,4 @@
-import { Auth } from '@aws-amplify/auth'
+import { Auth } from '@aws-amplify/auth';
 
 const apiConfig = {
     endpoints: [
@@ -6,7 +6,7 @@ const apiConfig = {
             name: 'API',
             endpoint: process.env.REACT_APP_API ? process.env.REACT_APP_API : '/api',
             custom_header: async () => {
-                return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` }
+                return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` };
             }
         },
         {
@@ -14,7 +14,7 @@ const apiConfig = {
             endpoint: process.env.REACT_APP_API ? process.env.REACT_APP_API : '/api'
         }
     ]
-}
+};
 
 
 export default apiConfig;
