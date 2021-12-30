@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.row {  
+  display: flex;
+  justify-content: center;
+}
+
+.cell {
+  padding: 20px;
+  border: 1px solid black;
+}
