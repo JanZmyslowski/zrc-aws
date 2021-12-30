@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/api": "^4.0.29",
+    "@aws-amplify/auth": "^4.3.19",
+    "@aws-amplify/core": "^4.3.11",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
