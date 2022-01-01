@@ -72,8 +72,12 @@ export default class LambdaService {
     }
 
     private async ensureIsAuthenticated(): Promise<boolean> {
-        const user = await Auth.currentAuthenticatedUser();
-        return user !== null && user !== undefined;
+        try {
+            const user = await Auth.currentAuthenticatedUser();
+            return true;
+        } catch {
+            return false;
+        }
     }
 };
 
