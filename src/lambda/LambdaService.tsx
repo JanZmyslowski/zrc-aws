@@ -6,7 +6,7 @@ import { ITranslatedText } from '../models/TranslatedText';
 
 export default class LambdaService {
 
-    private lambda = new Lambda(
+    private static readonly lambda = new Lambda(
         {
             region: config.region,
             accessKeyId: config.accessKeyId,
@@ -15,7 +15,7 @@ export default class LambdaService {
         });
 
 
-    public async getNotes(): Promise<INote[]> {
+    public static async getNotes(): Promise<INote[]> {
 
         const user = await Auth.currentAuthenticatedUser();
 
@@ -32,11 +32,13 @@ export default class LambdaService {
         return payload.body.Items as INote[];;
     }
 
-    public async createOrUpdateNote(note: INote) {
+    public static async createOrUpdateNote(note: INote) {
 
         if (!(await this.ensureIsAuthenticated())) {
             return;
         }
+
+        note.UpdatedAt = Date.now();
 
         return await this.lambda.invoke({
             FunctionName: 'createOrUpdateNote',
@@ -44,7 +46,7 @@ export default class LambdaService {
         }).promise();
     }
 
-    public async deleteNote(note: INote) {
+    public static async deleteNote(note: INote) {
 
         if (!(await this.ensureIsAuthenticated())) {
             return;
@@ -56,7 +58,7 @@ export default class LambdaService {
         }).promise();
     }
 
-    public async translateNote(note: INote, targetLang: string, sourceLang: string | null = null): Promise<ITranslatedText | null> {
+    public static async translateNote(note: INote, targetLang: string, sourceLang: string | null = null): Promise<ITranslatedText | null> {
 
         if (!(await this.ensureIsAuthenticated())) {
             return null;
@@ -71,7 +73,7 @@ export default class LambdaService {
         return payload.body;
     }
 
-    private async ensureIsAuthenticated(): Promise<boolean> {
+    private static async ensureIsAuthenticated(): Promise<boolean> {
         try {
             const user = await Auth.currentAuthenticatedUser();
             return true;

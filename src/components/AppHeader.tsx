@@ -7,7 +7,6 @@ import { ILoginResult, UserContext } from '../context/UserContext';
 import { LinkContainer } from 'react-router-bootstrap';
 
 function HomePage() {
-    const lambdaService = new LambdaService();
     const { user, login, logout } = useContext(UserContext);
     const [messagesList, setMessagesList] = useState<ILoginResult[]>([]);
     const [userPassword, setUserPassword] = useState<string>('');
@@ -15,7 +14,6 @@ function HomePage() {
 
     const [show, setShow] = useState(false);
     const [loging, setLoging] = useState(false);
-
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,13 +31,13 @@ function HomePage() {
 
         };
 
-        lambdaService.createOrUpdateNote(newNote).then(() => {
-            lambdaService.getNotes().then(res => {
+        LambdaService.createOrUpdateNote(newNote).then(() => {
+            LambdaService.getNotes().then(res => {
                 console.log('get1', res);
-                lambdaService.deleteNote(res[0]).then(() => {
-                    lambdaService.getNotes().then(res2 => {
+                LambdaService.deleteNote(res[0]).then(() => {
+                    LambdaService.getNotes().then(res2 => {
                         console.log('get2', res2);
-                        lambdaService.translateNote(res2[0], 'pl').then(tr => console.log('translated', tr));
+                        LambdaService.translateNote(res2[0], 'pl').then(tr => console.log('translated', tr));
                     });
                 });
             });
