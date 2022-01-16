@@ -7,42 +7,26 @@ import { ILoginResult, UserContext } from '../../context/UserContext';
 import { LinkContainer } from 'react-router-bootstrap';
 
 function HomePage() {
-    const { user, login, logout } = useContext(UserContext);
+    const { user, login, register, logout } = useContext(UserContext);
     const [messagesList, setMessagesList] = useState<ILoginResult[]>([]);
     const [userPassword, setUserPassword] = useState<string>('');
     const [userLogin, setUserLogin] = useState<string>('');
+    const [userEmail, setUserEmail] = useState<string>('');
 
     const [show, setShow] = useState(false);
     const [loging, setLoging] = useState(false);
+    const [registering, setRegistering] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const fetch = useCallback(async () => {
-        const user = await Auth.currentAuthenticatedUser();
-        console.log(user.username);
-
-        const newNote: INote = {
-            User: user.username,
-            Content: 'Note content',
-            CreatedAt: Date.now(),
-            Title: 'Note Title',
-            UpdatedAt: Date.now()
-
-        };
-
-        LambdaService.createOrUpdateNote(newNote).then(() => {
-            LambdaService.getNotes().then(res => {
-                console.log('get1', res);
-                LambdaService.deleteNote(res[0]).then(() => {
-                    LambdaService.getNotes().then(res2 => {
-                        console.log('get2', res2);
-                        LambdaService.translateNote(res2[0], 'pl').then(tr => console.log('translated', tr));
-                    });
-                });
-            });
-        });
-    }, []);
+    const handleShow = () => {
+        setUserEmail('');
+        setUserLogin('');
+        setUserPassword('');
+        setShow(true);
+        handleRegistered();
+    };
+    const handleRegistered = () => setRegistering(false);
+    const handleRegister = () => setRegistering(true);
 
     const signIn = () => {
         setLoging(true);
@@ -50,6 +34,20 @@ function HomePage() {
             setMessagesList([res]);
             if (res.success)
                 handleClose();
+        }).finally(() => setLoging(false));
+    };
+
+    const signUp = () => {
+        setLoging(true);
+        register(userEmail, userLogin, userPassword).then(res => {
+            setMessagesList([res]);
+            if (res.success) {
+                setUserEmail('');
+                setUserLogin('');
+                setUserPassword('');
+                handleRegistered();
+
+            }
         }).finally(() => setLoging(false));
     };
 
@@ -94,6 +92,12 @@ function HomePage() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Form>
+                        {registering &&
+                            <Form.Group className="mb-3">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" value={userEmail}
+                                    onChange={e => setUserEmail(e.target.value)} />
+                            </Form.Group>}
                         <Form.Group className="mb-3">
                             <Form.Label>Login</Form.Label>
                             <Form.Control type="login" placeholder="Enter login" value={userLogin}
@@ -106,9 +110,21 @@ function HomePage() {
                         </Form.Group>
                         <Stack>
                             {loging ? <Spinner animation="border" style={{ margin: 'auto' }} /> :
-                                <Button variant="dark" type="button" size='lg' onClick={signIn}>
-                                    Log in
-                                </Button>}
+                                <>
+                                    {registering ?
+                                        <Button variant="dark" type="button" size='lg' onClick={signUp}>
+                                            Create new
+                                        </Button> : <>
+                                            <Button variant="dark" type="button" size='lg' onClick={signIn}>
+                                                Log in
+                                            </Button>
+                                            <Button variant="light" type="button" size='lg' onClick={handleRegister}>
+                                                Register
+                                            </Button>
+                                        </>}
+
+                                </>
+                            }
 
                         </Stack>
 

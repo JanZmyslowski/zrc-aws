@@ -4,6 +4,7 @@ import { createContext, ReactChild, ReactFragment, ReactPortal, useEffect, useSt
 interface IUserContext {
     user: CognitoUser | any;
     login: (login: string, password: string) => Promise<ILoginResult>;
+    register: (email: string, login: string, password: string) => Promise<ILoginResult>;
     logout: () => void;
 }
 
@@ -12,7 +13,12 @@ export interface ILoginResult {
     message: string;
 }
 
-export const UserContext = createContext<IUserContext>({ user: null, login: () => { return new Promise(() => { return { success: false, message: 'Not initialized' }; }); }, logout: () => { } });
+export const UserContext = createContext<IUserContext>({
+    user: null,
+    login: () => { return new Promise(() => { return { success: false, message: 'Not initialized' }; }); },
+    register: () => { return new Promise(() => { return { success: false, message: 'Not initialized' }; }); },
+    logout: () => { }
+});
 
 const UserProvider: React.FC = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -36,7 +42,25 @@ const UserProvider: React.FC = ({ children }) => {
             setUser(newUser);
             return { success: true, message: 'Welcome ' + newUser.username };
         } catch (e) {
-            return { success: false, message: 'Invalid login or password' };
+            return { success: false, message: (e as any)?.message ?? 'Invalid login or password' };
+        }
+    };
+
+    const register = async (email: string, login: string, password: string): Promise<ILoginResult> => {
+        try {
+            console.log(login);
+            console.log(password);
+            const newUser = await Auth.signUp({
+                username: login,
+                password: password,
+                attributes: {
+                    email: email
+                }
+            });
+            console.log(newUser);
+            return { success: true, message: 'Registered ' + login };
+        } catch (e) {
+            return { success: false, message: (e as any)?.message ?? 'Invalid login or password' };
         }
     };
 
@@ -52,6 +76,7 @@ const UserProvider: React.FC = ({ children }) => {
             value={{
                 user,
                 login,
+                register,
                 logout
             }}
         >
