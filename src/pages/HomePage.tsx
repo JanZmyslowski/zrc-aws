@@ -1,35 +1,24 @@
+import { Container, Button, Row, Col, Spinner, Form, Pagination, Card } from 'react-bootstrap';
+import './HomePage.css';
+import notesJPG from '../assets/homepage.jpg';
 
 function HomePage() {
     return (
-        <div>Home</div>
+        <Container fluid='md' className="d-flex p-5 h-100 my-4">
+            <Card className='w-100 m-4 quote-card'>
+                <Card.Body className='w-100' style={{height: '860px'}}>
+                    <Container className="quote">
+                        <h1 style={{fontWeight: 'bold'}}>Simple Intelligent Multilingual Pad</h1>
+                        <h2 style={{fontStyle: 'italic'}}>Your all digitized notes in one place.</h2>
+                        <h4 style={{fontStyle: 'italic'}} className="quote-cacao">~ Cacao DecoMorreno</h4>
+                    </Container>
+                    <Container className="jpg">
+                        <img alt="Notes from the app" src={notesJPG} />
+                    </Container>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 }
 
 export default HomePage;
-
-// import config from './config';
-
-// const user = await Auth.signIn('admin3', 'adminpass2');
-
-//             const lambda = new Lambda(
-//                 {
-//                     region: config.region,
-//                     accessKeyId: config.accessKeyId,
-//                     secretAccessKey: config.secretAccessKey,
-//                     sessionToken: config.sessionToken
-//                 });
-
-//             lambda.invoke({
-//                 FunctionName: 'cognitoTest',
-//                 Payload: JSON.stringify({ user: await Auth.currentAuthenticatedUser() }),
-//             }, function (err, data) {
-//                 if (err) console.log(err, err.stack); // an error occurred
-//                 else console.log(data);           // successful response
-//             });
-
-//             lambda.listFunctions({
-//                 FunctionVersion: 'ALL'
-//             }, function (err, data) {
-//                 if (err) console.log(err, err.stack); // an error occurred
-//                 else console.log(data);           // successful response
-//             });

@@ -1,8 +1,6 @@
 import { createRef, useEffect, useState } from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { INote } from '../../models/Note';
-import * as Icon from 'react-bootstrap-icons';
-import React from 'react';
 import LanguageDropdown from '../translate/LanguageDropdown';
 import LambdaService from '../../lambda/LambdaService';
 
@@ -61,7 +59,7 @@ function NoteEdit(props: ISelfProps) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
-                <Button variant="primary" onClick={handleSave}>Save</Button>
+                <Button variant="primary" onClick={handleSave}>Overwrite</Button>
             </Modal.Footer>
         </Modal>
     );
