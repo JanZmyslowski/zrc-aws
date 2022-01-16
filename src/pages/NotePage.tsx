@@ -30,7 +30,7 @@ function NotePage() {
         updatedAt: '',
         createdAt: ''
     });
-    
+
     const sortNotesByLastUpdated = (notes: INote[]) => {
         return notes.sort((a, b) => {
             return b.UpdatedAt - a.UpdatedAt;
@@ -55,12 +55,12 @@ function NotePage() {
     };
 
     const handleFilterChange = useCallback(async (e, field: keyof INoteFilters) => {
-        const newFilters = {...filters};
+        const newFilters = { ...filters };
         newFilters[field] = e.target.value;
         setFilters(newFilters);
 
-        const newFilteredNotes = notes.filter(n => 
-            n.Content.includes(newFilters.content) 
+        const newFilteredNotes = notes.filter(n =>
+            n.Content.includes(newFilters.content)
             && n.Title.includes(newFilters.title)
             && (!newFilters.createdAt || areDatesEqual(new Date(n.CreatedAt), new Date(newFilters.createdAt)))
             && (!newFilters.updatedAt || areDatesEqual(new Date(n.UpdatedAt), new Date(newFilters.updatedAt)))
@@ -94,11 +94,11 @@ function NotePage() {
     };
 
     const renderFilteredNotes = () => {
-        if(!filteredNotes || filteredNotes.length === 0)
+        if (!filteredNotes || filteredNotes.length === 0)
             return <div>Nothing to show</div>;
 
         const paginatedNotes = filteredNotes.slice((activePage - 1) * itemsPerPage, Math.min(((activePage - 1) * itemsPerPage) + itemsPerPage, filteredNotes.length));
-        
+
         return (
             <Row xs={1} md={3} className="g-4 justify-content-start">
                 {paginatedNotes.map(note => (
@@ -128,7 +128,7 @@ function NotePage() {
                     <Pagination.First onClick={() => setActivePage(1)} />
                     <Pagination.Prev onClick={() => setActivePage(activePage - 1)} />
                     {paginationItems}
-                    <Pagination.Next onClick={() => setActivePage(activePage + 1)}  />
+                    <Pagination.Next onClick={() => setActivePage(activePage + 1)} />
                     <Pagination.Last onClick={() => setActivePage(pageCount)} />
                 </Pagination>
             </Row>
@@ -149,19 +149,19 @@ function NotePage() {
                                     <Form.Group className="w-100 me-4" controlId="formTitle">
                                         <Form.Label>Note title</Form.Label>
                                         <Form.Control type="text" onChange={e => handleFilterChange(e, 'title')} />
-                                    </Form.Group>   
+                                    </Form.Group>
                                     <Form.Group className="w-100 me-4" controlId="formContent">
                                         <Form.Label>Note content</Form.Label>
                                         <Form.Control type="text" onChange={e => handleFilterChange(e, 'content')} />
-                                    </Form.Group>     
+                                    </Form.Group>
                                     <Form.Group className="w-100 me-4" controlId="formUpdatedAt">
                                         <Form.Label>Updated at</Form.Label>
                                         <Form.Control type="date" onChange={e => handleFilterChange(e, 'updatedAt')} />
-                                    </Form.Group>  
+                                    </Form.Group>
                                     <Form.Group className="w-100" controlId="formCreatedAt">
                                         <Form.Label>Created at</Form.Label>
                                         <Form.Control type="date" onChange={e => handleFilterChange(e, 'createdAt')} />
-                                    </Form.Group>                     
+                                    </Form.Group>
                                 </Form>
                             </Col>
                             <Col className="d-flex justify-content-end">

@@ -1,5 +1,5 @@
 import { createRef, useEffect, useState } from 'react';
-import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
+import { Button, Modal, Form, Row, Col, Spinner } from 'react-bootstrap';
 import { INote } from '../../models/Note';
 import LanguageDropdown from '../translate/LanguageDropdown';
 import LambdaService from '../../lambda/LambdaService';
@@ -13,15 +13,18 @@ interface ISelfProps {
 
 function NoteEdit(props: ISelfProps) {
     const [language, setLanguage] = useState<string>('');
-    const [translatedNote, setTranslatedNote] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [translatedNote, setTranslatedNote] = useState<string>(props.note.Content);
 
-    const handleTranslate = async () => { 
+    const handleTranslate = async () => {
+        setLoading(true);
         const translated = await LambdaService.translateNote(props.note, language);
+        setLoading(false);
         setTranslatedNote(translated?.TranslatedText ?? '');
     };
 
     const handleSave = () => {
-        const noteToSave = {...props.note};
+        const noteToSave = { ...props.note };
         noteToSave.Content = translatedNote;
         props.handleSave(noteToSave);
     };
@@ -29,6 +32,12 @@ function NoteEdit(props: ISelfProps) {
     const handleCancel = () => {
         props.handleClose();
     };
+
+    useEffect(() => {
+        setTranslatedNote(props.note.Content);
+        setLanguage('');
+        setLoading(false);
+    }, [props.show]);
 
     return (
         <Modal
@@ -49,12 +58,12 @@ function NoteEdit(props: ISelfProps) {
                         <LanguageDropdown onChange={setLanguage} />
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <Button variant="primary" onClick={handleTranslate}>Translate</Button>
+                        {loading ? <Spinner animation="border" style={{ margin: 'auto' }} /> : <Button variant="primary" onClick={handleTranslate} disabled={language === ''}>Translate</Button>}
                     </Col>
                 </Row>
                 <Form.Group className="mb-3">
                     <Form.Label>Translate result</Form.Label>
-                    <Form.Control as="textarea" rows={10} onChange={(e) => setTranslatedNote(e.target.value)} value={translatedNote}/>
+                    <Form.Control as="textarea" rows={10} onChange={(e) => setTranslatedNote(e.target.value)} value={translatedNote} />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
