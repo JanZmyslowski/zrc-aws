@@ -6,17 +6,14 @@ import { ITranslatedText } from '../models/TranslatedText';
 
 export default class LambdaService {
 
-    private static readonly lambda = new Lambda(
-        {
-            region: config.region,
-            accessKeyId: config.accessKeyId,
-            secretAccessKey: config.secretAccessKey,
-            sessionToken: config.sessionToken
-        });
-
+    private static readonly lambda = new Lambda({
+        region: config.region,
+        accessKeyId: config.accessKeyId,
+        secretAccessKey: config.secretAccessKey,
+        sessionToken: config.sessionToken
+    });
 
     public static async getNotes(): Promise<INote[]> {
-
         const user = await Auth.currentAuthenticatedUser();
 
         if (!(await this.ensureIsAuthenticated())) {
@@ -29,7 +26,8 @@ export default class LambdaService {
         }).promise();
         let payload = JSON.parse(res.Payload as string);
 
-        return payload.body.Items as INote[];;
+        const notes = payload.body.Items as INote[];
+        return notes;
     }
 
     public static async createOrUpdateNote(note: INote) {

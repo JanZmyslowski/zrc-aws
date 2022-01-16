@@ -1,6 +1,6 @@
 import { createRef, useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { INote } from '../models/Note';
+import { INote } from '../../models/Note';
 import * as Icon from 'react-bootstrap-icons';
 import React from 'react';
 

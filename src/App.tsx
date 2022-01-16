@@ -7,8 +7,9 @@ import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NotePage from './pages/NotePage';
-import AppHeader from './components/AppHeader';
+import AppHeader from './components/routing/AppHeader';
 import UserProvider from './context/UserContext';
+import ProtectedRouteElement from './components/routing/ProtectedRoute';
 
 function App() {
     useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
                     {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
                     <Routes>
-                        <Route path="/note" element={<NotePage />} />
+                        <Route path="/note" element={<ProtectedRouteElement element={<NotePage />}/>} />
                         <Route path="/" element={<HomePage />} />
                     </Routes>
                 </div>

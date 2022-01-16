@@ -1,9 +1,9 @@
 import { useCallback, useContext, useState } from 'react';
 import { Button, Container, Form, Nav, Navbar, Offcanvas, Spinner, Stack, Toast, ToastContainer } from 'react-bootstrap';
 import { Auth } from '@aws-amplify/auth';
-import { INote } from '../models/Note';
-import LambdaService from '../lambda/LambdaService';
-import { ILoginResult, UserContext } from '../context/UserContext';
+import { INote } from '../../models/Note';
+import LambdaService from '../../lambda/LambdaService';
+import { ILoginResult, UserContext } from '../../context/UserContext';
 import { LinkContainer } from 'react-router-bootstrap';
 
 function HomePage() {

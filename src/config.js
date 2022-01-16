@@ -1,8 +1,8 @@
 const config = {
-    'accessKeyId': 'ASIAYN4MGSALQZCPM5G4',
-    'secretAccessKey': 'KVuXoryXkdLlTjaResA1EEa4A9eLpE8hiOOf1vEw',
+    'accessKeyId': 'ASIAYN4MGSALRRTIMBN2',
+    'secretAccessKey': 'xPI3Vii+YS3ugVj0zHdh/oBTiz2hKbsLQI1dlo8I',
     'region': 'us-east-1',
-    'sessionToken': 'FwoGZXIvYXdzEHQaDCzZz2jmmTqxYAf1xyLKAYCs3cIu3aEkY8dwIGDLTMRFx4KKUiToyrnneV/8JqByZt+uOMFSM1kB5qamDKg+Vqwy55vQ+nABaZNuUKGkucwIi6UTP0P3vqcRqxnlp8Dmxuq5qzcxOY2TwiSos2+ItoJ+6JS1SoOyfiDRfh1xP0djl/g2tJCZeBhPh5cnDj4mDNwdylRhbobhDnjpMY2qxdwJe6VqJqC6EfNdyeLlpRD6LsbUN23EIAxFRcbgpZksG1H5udzvGoU7mAkQNtB8SnnrcayJTFt74uIooP6GjwYyLRA/zti7m3QpnmXiJeRP7XIfZGPAL/KZi2EycZOASH1oyTfZRtejW+XQnCAiNQ=='
+    'sessionToken': 'FwoGZXIvYXdzEKL//////////wEaDO2BGfvyaHtX66Tp5yLKAewHMaYezUof7h/47fDyPd+ZjjDeQMRJMuDvoYsp1Hj8s5FmlHlmPlF8ChwuF8nal8irTI0HaRa6Fg8Lpj283wB5Y3KsBkhpVzfpXus9+qKaEcvWZLqRLcEqhdzrBtNqnvn+dk6VHpCG+j9qdq3pT/FJH/UVuq31bUKRbe3qEVvzYt/o0xvT/qGicmt3ZrjWL3b/bqAjMgw1Yu1jo1E/H86KDKync+FPJ3Tz0Ln7sREGuIusD44KbLRPPr0rCkfmPJ2GR1hWD2jn3FEo6JuRjwYyLXa7eKFU+SjYyt1jdls9Eh7+SBpU3q/ei/kQ9pQKH5joWYVw0b1oviWgeXkofA=='
 };
 
 export default config;

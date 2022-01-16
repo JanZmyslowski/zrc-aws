@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.page-link {
+  color: #212529 !important;
+}
+
+.page-item.active .page-link {
+  color: white !important;
+  background-color: #212529 !important;
+  border-color: #212529 !important;
+} 
