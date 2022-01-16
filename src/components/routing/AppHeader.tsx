@@ -114,7 +114,8 @@ function HomePage() {
                                     {registering ?
                                         <Button variant="dark" type="button" size='lg' onClick={signUp}>
                                             Create new
-                                        </Button> : <>
+                                        </Button>
+                                        : <>
                                             <Button variant="dark" type="button" size='lg' onClick={signIn}>
                                                 Log in
                                             </Button>

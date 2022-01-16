@@ -42,14 +42,12 @@ const UserProvider: React.FC = ({ children }) => {
             setUser(newUser);
             return { success: true, message: 'Welcome ' + newUser.username };
         } catch (e) {
-            return { success: false, message: (e as any)?.message ?? 'Invalid login or password' };
+            return { success: false, message: 'Invalid login or password' };
         }
     };
 
     const register = async (email: string, login: string, password: string): Promise<ILoginResult> => {
         try {
-            console.log(login);
-            console.log(password);
             const newUser = await Auth.signUp({
                 username: login,
                 password: password,
@@ -57,7 +55,7 @@ const UserProvider: React.FC = ({ children }) => {
                     email: email
                 }
             });
-            console.log(newUser);
+
             return { success: true, message: 'Registered ' + login };
         } catch (e) {
             return { success: false, message: (e as any)?.message ?? 'Invalid login or password' };
