@@ -88,7 +88,7 @@ function HomePage() {
             </Navbar>
             <Offcanvas show={show} onHide={handleClose} placement='end'>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Sign in</Offcanvas.Title>
+                    <Offcanvas.Title>SIMP account</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Form>
